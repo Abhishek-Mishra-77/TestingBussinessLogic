@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { OutTable, ExcelRenderer } from "react-excel-renderer";
+import { ExcelRenderer } from "react-excel-renderer";
 const ExcelReader = () => {
-  const [headers, setHeaders] = useState([]);
   const [cols, setCols] = useState([]);
 
   const onExcelHandler = (event) => {
@@ -11,7 +10,6 @@ const ExcelReader = () => {
         if (err) {
           console.log(err);
         } else {
-          setHeaders(response.rows[0]);
           setCols(response.rows);
         }
       });
@@ -35,30 +33,14 @@ const ExcelReader = () => {
             <tbody className="divide-y divide-gray-200">
               {cols?.map((d, i) => (
                 <tr key={i}>
-                  <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                    {d[0]}
-                  </td>
-                  <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                    {d[1]}
-                  </td>
-                  <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                    {d[2]}
-                  </td>
-                  <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                    {d[4]}
-                  </td>
-                  <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                    {d[5]}
-                  </td>
-                  <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                    {d[6]}
-                  </td>
-                  <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                    {d[7]}
-                  </td>
-                  <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                    {d[8]}
-                  </td>
+                  {d.map((v, i) => (
+                    <td
+                      key={i}
+                      className="whitespace-nowrap px-4 py-2 font-medium text-gray-900"
+                    >
+                      {v}
+                    </td>
+                  ))}
                 </tr>
               ))}
             </tbody>
